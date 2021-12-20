@@ -1,0 +1,2 @@
+flux_led==0.26.11
+websocket-client==1.2.1
