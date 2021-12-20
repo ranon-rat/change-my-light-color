@@ -1,8 +1,6 @@
-import asyncio
-import pprint
-
+from asyncio import run
+from pprint import pprint
 from flux_led.aio import AIOWifiLedBulb
-
 from websocket import create_connection
 # here you should put the private ip of your light
 # so here is  the private ip of my light 
@@ -18,7 +16,7 @@ def hex_to_rgb(hex):
 async def main():
     bulb = AIOWifiLedBulb(ip)
 
-    await bulb.async_setup(lambda:pprint.pprint(["State Changed!", bulb.raw_state]))
+    await bulb.async_setup(lambda:pprint(["State Changed!", bulb.raw_state]))
     ws =create_connection(url)
     print("connected")
     while(True):
@@ -29,4 +27,4 @@ async def main():
     
     
 if __name__ == "__main__":
-    asyncio.run(main())
+    run(main())
