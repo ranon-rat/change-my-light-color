@@ -4,7 +4,7 @@ from websocket import WebSocketApp
 # so here is  the private ip of my light 
 ip = "192.168.100.59"
 bulb = WifiLedBulb(ip)
-url="ws://localhost:8080/color"
+url="ws://ranon-bulb.herokuapp.com/color"
 def hex_to_rgb(hex):
     return int(hex[1:3], 16), int(hex[3:5], 16), int(hex[5:7], 16)
 def on_message(_, message):
