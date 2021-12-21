@@ -8,9 +8,14 @@ ip = "192.168.100.59"
 url="ws://ranon-bulb.herokuapp.com/color"
 
 def hex_to_rgb(hex):
-    if len(hex)<7:
-        hex="#ffffff"
-    return int(hex[1:3], 16), int(hex[3:5], 16), int(hex[5:7], 16)
+    try:
+        if len(hex)!=7:
+            return 255,255,255
+        (r,g,b)=int(hex[1:3], 16), int(hex[3:5], 16), int(hex[5:7], 16)
+    except:
+        return 255,255,255
+        
+    return r,g,b
 
 
 async def main():
@@ -20,10 +25,13 @@ async def main():
     ws =create_connection(url)
     print("connected")
     while(True):
-        result = ws.recv()
-        print(result)
-        (r,g,b)=hex_to_rgb(result)
-        await bulb.async_set_levels(r,g,b)
+        try:
+            result = ws.recv()
+            print(result)
+            (r,g,b)=hex_to_rgb(result)
+            await bulb.async_set_levels(r,g,b)
+        except:
+            continue
     
     
 if __name__ == "__main__":
